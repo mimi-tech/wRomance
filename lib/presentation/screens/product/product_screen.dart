@@ -495,17 +495,33 @@ class ProductTropes extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //converted string (book.tropes(5))  to list
+    List<String> tropesToShow = book.tropes(5).split(" • ");
+    List<Widget> list =  <Widget>[];
+    //Generating list of Widget
+    List<Widget> getTropes(){
+      for (int i = 0; i < tropesToShow.length; i++) {
+        Widget w = Text(
+          i == 0?"${tropesToShow[i]}":" • ${tropesToShow[i]}",
+          textAlign: TextAlign.center,
+          style: newProduct
+              ? ThemeTextStyle.s15w400.copyWith(color: const Color(0xB3FFFFFF))
+              : ThemeTextStyle.s14w400.copyWith(color: const Color(0xB3FFFFFF),
+          ),
+          maxLines: 2,
+        );
+        list.add(w);
+      }
+      return list;
+    }
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: newProduct ? 30 : 16),
-      child: Text(
-        book.tropes(5),
-        textAlign: TextAlign.center,
-        style: newProduct
-            ? ThemeTextStyle.s15w400.copyWith(color: const Color(0xB3FFFFFF))
-            : ThemeTextStyle.s14w400.copyWith(
-          color: const Color(0xB3FFFFFF),
-        ),
-        maxLines: 2,
+      child: Wrap(
+        alignment: WrapAlignment.center,
+        clipBehavior: Clip.antiAliasWithSaveLayer,
+        runSpacing: 8,
+        children: getTropes(),
+
       ),
     );
   }
