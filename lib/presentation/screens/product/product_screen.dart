@@ -63,6 +63,8 @@ class ProductScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final double screenWidth = MediaQuery.of(context).size.width;
+    final double screenHeight = MediaQuery.of(context).size.height;
     final libraryState = context.read<LibraryState>();
     final allBooks = context.read<DataRepository>().books;
     final finishedBookIds = allBooks
@@ -75,7 +77,19 @@ class ProductScreen extends StatelessWidget {
       child: Placement.named(
         placement,
         subplacement: "book",
-        child: ProductScreenBody(book),
+        child: Container(
+            width: screenWidth,
+            height: screenHeight,
+            decoration: BoxDecoration(
+                gradient: LinearGradient(colors: [
+
+                 book.id ==  6.toString()?ThemeColors.accentBackground.withOpacity(0.85):ThemeColors.accentBackground.withOpacity(0.7),
+                  ThemeColors.accentBackground,
+                ], stops: const [
+                  0.5,
+                  0.75,
+                ], begin: Alignment.topCenter, end: Alignment.bottomCenter)),
+            child: ProductScreenBody(book)),
       ),
     );
   }
