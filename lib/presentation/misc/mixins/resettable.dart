@@ -1,0 +1,3 @@
+mixin Resettable {
+  void reset();
+}
